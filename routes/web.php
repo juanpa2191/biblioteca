@@ -4,15 +4,16 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes - Biblioteca (frontend Blade)
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+| La autenticación se gestiona en el cliente: cada vista verifica si existe
+| un token en localStorage; si no, redirige a /login. Todas las llamadas a
+| datos van a /api/* con Authorization: Bearer <token>.
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn () => redirect()->route('dashboard'));
+
+Route::view('/login',     'auth.login')->name('login');
+Route::view('/dashboard', 'dashboard')->name('dashboard');
+Route::view('/libros',    'libros')->name('libros.index');
+Route::view('/prestamos', 'prestamos')->name('prestamos.index');
