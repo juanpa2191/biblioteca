@@ -15,7 +15,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('prestamos:marcar-vencidos')
+            ->dailyAt('02:00')
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->name('marcar-prestamos-vencidos')
+            ->description('Marca como vencidos los préstamos con más de 15 días de atraso');
     }
 
     /**
